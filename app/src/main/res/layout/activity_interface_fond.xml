@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:orientation="vertical"
+    android:background="@drawable/background"
+    tools:context=".MainActivity">
+
+    <!-- Titre pour les premiers boutons -->
+    <!-- Ajoutez ceci après le dernier HorizontalScrollView -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="12dp">
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <!-- Fond de teint 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/fond1"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="8dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:text="Fond de teint 1"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="$10"
+                        android:textSize="18sp" />
+
+                    <!-- Bouton de diminution (-) -->
+                    <Button
+                        android:id="@+id/button_diminuer_ft1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:backgroundTint="#FFC0CB"
+                        android:onClick="diminuerQuantite" />
+
+                    <!-- Texte pour afficher la quantité -->
+                    <TextView
+                        android:id="@+id/quantite_ft1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:textSize="18sp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp" />
+
+                    <!-- Bouton d'augmentation (+) -->
+                    <Button
+                        android:id="@+id/button_augmenter_ft1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+"
+                        android:backgroundTint="#FFC0CB"
+                        android:onClick="augmenterQuantite" />
+
+                    <!-- Bouton "Ajouter au panier" -->
+                    <Button
+                        android:id="@+id/button_ajout_panier_ft1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ajouter au panier"
+                        android:backgroundTint="#FFC0CB" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <!-- Fond de teint 2 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/fond2"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="8dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:text="Fond de teint 2"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$15"
+                        android:textSize="18sp"
+                        android:layout_marginStart="8dp" />
+
+                    <!-- Bouton de diminution (-) -->
+                    <Button
+                        android:id="@+id/button_diminuer_ft2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:backgroundTint="#FFC0CB"
+                        android:onClick="buttonMinusFT1" />
+
+                    <!-- Texte pour afficher la quantité -->
+                    <TextView
+                        android:id="@+id/quantite_ft2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:textSize="18sp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp" />
+
+                    <!-- Bouton d'augmentation (+) -->
+                    <Button
+                        android:id="@+id/button_augmenter_ft2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+"
+                        android:backgroundTint="#FFC0CB"
+                        android:onClick="buttonPlusFT1" />
+
+                    <!-- Bouton "Ajouter au panier" -->
+                    <Button
+                        android:id="@+id/button_ajout_ft1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ajouter au panier"
+                        android:backgroundTint="#FFC0CB" />
+                </LinearLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Ajoutez autant de fonds de teint que nécessaire de la même manière -->
+    </LinearLayout>
+</ScrollView>

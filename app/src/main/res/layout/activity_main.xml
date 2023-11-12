@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:orientation="vertical"
+    android:background="@drawable/background"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <!-- Encadrez l'image avec un CardView -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="true">
+
+            <ImageView
+                android:id="@+id/service_image"
+                android:layout_width="411dp"
+                android:layout_height="336dp"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="centerCrop"
+                android:src="@drawable/imagetop" />
+        </androidx.cardview.widget.CardView>
+    <!-- Titre pour les premiers boutons -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Les produits de maquillage"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp" />
+
+    <!-- ScrollView pour les premiers boutons -->
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+        <!-- LinearLayout horizontal pour les premiers boutons -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+
+            <!-- Bouton 1 -->
+            <Button
+                android:id="@+id/button_visage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Visage"
+                android:onClick="showDescription"
+                android:tag="Description du Visage"
+                android:backgroundTint="#FFC0CB" />
+
+
+            <!-- Bouton 2 -->
+            <Button
+                android:id="@+id/button_yeux"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Yeux"
+                android:onClick="showDescription"
+                android:tag="Description des yeux"
+                android:backgroundTint="#FFC0CB" />
+
+            <!-- Bouton 3 -->
+            <Button
+                android:id="@+id/button_levres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Levres"
+                android:onClick="showDescription"
+                android:tag="Description des levres"
+                android:backgroundTint="#FFC0CB" />
+
+
+
+        </LinearLayout>
+
+            </HorizontalScrollView>
+
+
+    <!-- Titre pour les deuxièmes boutons
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Les produits de soin"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp" />
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+    - LinearLayout horizontal pour les deuxièmes boutons -->
+        <!-- <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             android:gravity="center"
+             android:layout_marginTop="12dp">
+
+             <!- Cinquième bouton -->
+        <!-- <Button
+             android:id="@+id/button_visages"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Gel nettoyant"
+             android:onClick="showDescription"
+             android:tag="Description du Visage"
+             android:backgroundTint="#FFC0CB" />
+         <!- Sixième bouton -->
+        <!--  <Button
+              android:id="@+id/button_Yeuxc"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Creme hydratante"
+              android:onClick="showDescription"
+              android:tag="Description des yeux"
+              android:backgroundTint="#FFC0CB" />
+          <!- Septième bouton -->
+        <!-- <Button
+             android:id="@+id/button_levre"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Demaquillant"
+             android:onClick="showDescription"
+             android:tag="Description des levres"
+             android:backgroundTint="#FFC0CB" />
+
+
+     </LinearLayout>
+             </HorizontalScrollView>
+     <!- Titre pour les troisièmes boutons -->
+        <!--<TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Les produits de cheveux"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp" />
+                <HorizontalScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+        <!- LinearLayout horizontal pour les troisièmes boutons -->
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="12dp">
+
+            <!- Neuvième bouton -->
+        <!--<Button
+            android:id="@+id/button_shampoing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shampoing"
+            android:onClick="showDescription"
+            android:tag="Description du Visage"
+            android:backgroundTint="#FFC0CB" />
+
+        <!- Dixième bouton -->
+        <!-- <Button
+             android:id="@+id/button_apresshampoing"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Apres shampoing"
+             android:onClick="showDescription"
+             android:tag="Description du Visage"
+             android:backgroundTint="#FFC0CB" />
+
+         <!- Onzième bouton -->
+        <!-- <Button
+             android:id="@+id/button_masque"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Masque"
+             android:onClick="showDescription"
+             android:tag="Description du Visage"
+             android:backgroundTint="#FFC0CB" />
+         <!- Douzième bouton -->
+        <!-- <Button
+             android:id="@+id/button_serum"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Serum"
+             android:onClick="showDescription"
+             android:tag="Description du Visage"
+             android:backgroundTint="#FFC0CB" />
+     </LinearLayout>
+             </HorizontalScrollView>
+     <!- Titre -->
+
+
+    <!-- ScrollView -->
+
+        </LinearLayout>
+
+
+
+
+</ScrollView>

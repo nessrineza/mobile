@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:orientation="vertical"
+    android:background="@drawable/background"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <!-- Encadrez l'image avec un CardView -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="true">
+
+            <ImageView
+                android:id="@+id/service_image"
+                android:layout_width="410dp"
+                android:layout_height="251dp"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="centerCrop"
+                android:src="@drawable/rouge" />
+        </androidx.cardview.widget.CardView>
+        <!-- Titre pour les premiers boutons -->
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="true">
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Maquillage pour les levres"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp" />
+
+        <!-- ScrollView pour les premiers boutons -->
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <!-- LinearLayout horizontal pour les premiers boutons -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <!-- Bouton 1 -->
+                <Button
+                    android:id="@+id/button_shampoing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rouges à levres"
+                    android:onClick="showDescription"
+                    android:tag="Description du Visage"
+                    android:backgroundTint="#FFC0CB" />
+
+                <!-- Bouton 2 -->
+                <Button
+                    android:id="@+id/button_apresshampoing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Contour des levres"
+                    android:onClick="showDescription"
+                    android:tag="Description du Visage"
+                    android:backgroundTint="#FFC0CB" />
+
+                <!-- Bouton 3 -->
+                <Button
+                    android:id="@+id/button_masque"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gloss"
+                    android:onClick="showDescription"
+                    android:tag="Description du Visage"
+                    android:backgroundTint="#FFC0CB" />
+
+
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+
+
+
+        <!-- Titre -->
+
+
+        <!-- ScrollView -->
+
+    </LinearLayout>
+
+
+
+
+</ScrollView>

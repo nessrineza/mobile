@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- update_product_form.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <EditText
+        android:id="@+id/editUpdatedName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:hint="Updated Product Name"/>
+
+    <EditText
+        android:id="@+id/editUpdatedBrand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editUpdatedName"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:hint="Updated Brand"/>
+
+    <EditText
+        android:id="@+id/editUpdatedCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editUpdatedBrand"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:hint="Updated Category"/>
+
+    <EditText
+        android:id="@+id/editUpdatedPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editUpdatedCategory"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:inputType="numberDecimal"
+        android:hint="Updated Price"/>
+
+    <Button
+        android:id="@+id/btnUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update"
+        android:layout_below="@id/editUpdatedPrice"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#FFC0CB"/>
+</RelativeLayout>
