@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<!-- activity_update_appointment.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    android:background="@drawable/background"
+    android:padding="16dp">
 
+    <!-- Appointment ID -->
+    <EditText
+        android:id="@+id/editTextAppointmentId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Appointment ID"
+        android:inputType="number"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Appointment Title -->
     <TextView
         android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
@@ -16,34 +28,32 @@
         android:id="@+id/editTextTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewTitle"
-        android:layout_marginTop="8dp"
         android:inputType="text"
-        android:hint="Enter title"/>
+        android:hint="Enter title"
+        android:layout_marginBottom="16dp"/>
 
+    <!-- Location -->
     <TextView
         android:id="@+id/textViewLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Location:"
-        android:layout_below="@id/editTextTitle"
         android:layout_marginTop="16dp"/>
 
     <EditText
         android:id="@+id/editTextLocation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textViewLocation"
-        android:layout_marginTop="8dp"
+        android:layout_height="56dp"
         android:inputType="text"
-        android:hint="Enter location"/>
+        android:hint="Enter location"
+        android:layout_marginBottom="16dp"/>
 
+    <!-- Date -->
     <TextView
         android:id="@+id/textViewDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Select Date:"
-        android:layout_below="@id/editTextLocation"
         android:layout_marginTop="16dp"/>
 
     <Button
@@ -51,16 +61,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pick Date"
-        android:layout_below="@id/textViewDate"
-        android:layout_marginTop="8dp"
-        android:onClick="pickDate"/>
+        android:layout_marginBottom="16dp"
+        android:onClick="pickDate"
+        android:background="#FFC0CB"/> <!-- Bouton rose -->
 
+    <!-- Time -->
     <TextView
         android:id="@+id/textViewTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Select Time:"
-        android:layout_below="@id/buttonPickDate"
         android:layout_marginTop="16dp"/>
 
     <Button
@@ -68,17 +78,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pick Time"
-        android:layout_below="@id/textViewTime"
-        android:layout_marginTop="8dp"
-        android:onClick="pickTime"/>
+        android:layout_marginBottom="16dp"
+        android:onClick="pickTime"
+        android:background="#FFC0CB"/> <!-- Bouton rose -->
 
+    <!-- Save Appointment -->
     <Button
         android:id="@+id/buttonSaveAppointment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save Appointment"
-        android:layout_below="@id/textViewTime"
         android:layout_marginTop="16dp"
-        android:onClick="saveAppointment"/>
+        android:onClick="saveAppointment"
+        android:background="#E91E63"/> <!-- Bouton rose -->
 
-</RelativeLayout>
+    <!-- Go to Update -->
+    <Button
+        android:id="@+id/buttonUpdateAppointment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update Appointment"
+        android:layout_marginTop="16dp"
+        android:onClick="updateAppointment"
+        android:background="#E91E63"/> <!-- Bouton rose -->
+
+</LinearLayout>

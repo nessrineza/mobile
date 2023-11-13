@@ -3,6 +3,7 @@ package com.example.applicationnessrine;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -27,11 +28,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewTime;
     private EditText editTextTitle;
     private EditText editTextLocation;
+    private EditText editTextAppointmentId; // Ajoutez cette ligne
+    private long appointmentId;
+
 
     private int year, month, day, hour, minute;
     private DataSource dataSource;
 
-    @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -48,8 +52,12 @@ public class MainActivity extends AppCompatActivity {
         day = calendar.get(Calendar.DAY_OF_MONTH);
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
+
         dataSource = new DataSource(this);
         dataSource.open();
+
+        // Initialisez editTextAppointmentId après avoir ouvert la source de données
+        editTextAppointmentId = findViewById(R.id.editTextAppointmentId);
     }
 
     public void pickDate(View view) {
@@ -88,28 +96,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void saveAppointment(View view) {
+        // Récupérer les informations du rendez-vous depuis les champs de texte
         String title = editTextTitle.getText().toString();
         String location = editTextLocation.getText().toString();
-
-        // Format the date and time strings
         String date = String.format("%02d/%02d/%d", day, month + 1, year);
         String time = String.format("%02d:%02d", hour, minute);
 
-        // Display a message
-        String message = String.format(
-                "Appointment saved:\nTitle: %s\nLocation: %s\nDate: %s\nTime: %s",
-                title, location, date, time);
-        showToast(message);
-
-        // Save the appointment
-        long appointmentId = dataSource.addAppointment(title, location, date, time);
+        // Ajouter le rendez-vous à la base de données
+        long appointmentId = dataSource.insertAppointment(title, location, date, time);
 
         if (appointmentId != -1) {
             showToast("Appointment saved successfully!");
+
+            // Rediriger vers l'activité qui affiche la liste des rendez-vous
+            Intent intent = new Intent(this, ListeRendezVousActivity.class);
+            startActivity(intent);
+            finish(); // Facultatif : fermer l'activité actuelle pour éviter le retour
         } else {
             showToast("Failed to save appointment.");
         }
+        Intent intent = new Intent(this, ListeRendezVousActivity.class);
+        startActivity(intent);
     }
+
 
 
     private void showToast(String message) {
@@ -121,4 +130,37 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         dataSource.close();
     }
+    public void updateAppointment(View view) {
+        // Récupérez l'ID de l'élément à mettre à jour
+        String appointmentIdText = editTextAppointmentId.getText().toString();
+        if (!appointmentIdText.isEmpty()) {
+            long appointmentId = Long.parseLong(appointmentIdText);
+
+            // Récupérez les informations mises à jour
+            String title = editTextTitle.getText().toString();
+            String location = editTextLocation.getText().toString();
+            String date = String.format("%02d/%02d/%d", day, month + 1, year);
+            String time = String.format("%02d:%02d", hour, minute);
+
+            // Vérifiez que les champs requis ne sont pas vides
+            if (title.isEmpty() || location.isEmpty()) {
+                showToast("Title and location are required fields");
+                return;
+            }
+
+            // Mettez à jour l'élément dans la base de données
+            int rowsAffected = dataSource.updateAppointmentById(appointmentId, title, location, date, time);
+
+            // Affichez un message en fonction du succès de la mise à jour
+            if (rowsAffected > 0) {
+                showToast("Appointment updated successfully!");
+            } else {
+                showToast("Failed to update appointment.");
+            }
+        } else {
+            showToast("Appointment ID is required");
+        }
+    }
+
+
 }
