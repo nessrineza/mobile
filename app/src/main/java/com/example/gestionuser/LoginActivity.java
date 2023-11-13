@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -68,6 +69,12 @@ public class LoginActivity extends AppCompatActivity {
                 Intent userIntent = new Intent(this, MainActivity.class); // Change to the appropriate activity
                 startActivity(userIntent);
             }
+
+            // Save credentials in SharedPreferences if "Remember Me" is checked
+            CheckBox rememberMeCheckBox = findViewById(R.id.rememberMeCheckBox);
+            if (rememberMeCheckBox.isChecked()) {
+                saveCredentialsInSharedPreferences(input, password);
+            }
         } else {
             Toast.makeText(this, "Username/Email or password is incorrect", Toast.LENGTH_SHORT).show();
         }
@@ -85,5 +92,13 @@ public class LoginActivity extends AppCompatActivity {
         // Your existing login logic
         // ...
     }
-}
 
+    private void saveCredentialsInSharedPreferences(String username, String password) {
+        // Save the credentials in SharedPreferences
+        SharedPreferences preferences = getSharedPreferences("user_preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("username", username);
+        editor.putString("password", password);
+        editor.apply();
+    }
+}
