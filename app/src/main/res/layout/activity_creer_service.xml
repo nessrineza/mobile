@@ -1,0 +1,52 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".activity_creer_service">
+
+    <!-- EditText for Nom du service -->
+    <EditText
+        android:id="@+id/editTextNom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nom du service"/>
+<!--    <EditText-->
+<!--        android:id="@+id/editTextDescription"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:hint="Enter Description"/>-->
+
+    <!-- Button to add Offre -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ajouter Offre"
+        android:layout_below="@id/editTextNom"
+        android:layout_marginTop="16dp"
+        android:onClick="onAddOffreClick"/>
+
+    <!-- RecyclerView for displaying Offres -->
+
+    <!-- Button to create Service -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewOffres"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextNom"
+        android:layout_marginTop="73dp" />
+
+    <Button
+        android:id="@+id/btnCreateService"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Créer Service"
+        android:layout_below="@id/recyclerViewOffres"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
+    android:layout_marginEnd="16dp"
+    android:layout_marginRight="16dp"
+    android:onClick="onCreateServiceClick"/>
+</RelativeLayout>
