@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ApplicationNessrine"
+rootProject.name = "gestionuser"
 include(":app")
- 
+include(":mylibrary")

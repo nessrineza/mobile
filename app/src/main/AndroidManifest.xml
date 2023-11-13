@@ -10,17 +10,24 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ApplicationNessrine"
+        android:theme="@style/Theme.Gestionuser"
         tools:targetApi="31">
+
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Declare the SignUpActivity -->
+        <activity android:name=".SignUpActivity" />
+
+        <!-- Declare the UserItemListActivity -->
+        <activity android:name=".UserItemListActivity" />
+
     </application>
 
 </manifest>

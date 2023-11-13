@@ -1,4 +1,4 @@
-package com.example.applicationnessrine;
+package com.example.mylibrary;
 
 import org.junit.Test;
 
