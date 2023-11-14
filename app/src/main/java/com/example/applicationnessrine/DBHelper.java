@@ -54,7 +54,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("time", appointment.getTime());
 
         // Mettez à jour la ligne dans la table en fonction de l'ID
-        db.update("appointment_table", values, "id = ?", new String[]{String.valueOf(appointment.getId())});
+        db.update(DBHelper.TABLE_APPOINTMENTS, values, "id = ?", new String[]{String.valueOf(appointment.getId())});
 
         // Fermez la connexion à la base de données
         db.close();

@@ -58,8 +58,6 @@ public class DataSource {
         return database.query(DBHelper.TABLE_APPOINTMENTS, null, null, null, null, null, null);
     }
     public int updateAppointmentById(long appointmentId, String title, String location, String date, String time) {
-        SQLiteDatabase database = dbHelper.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(DBHelper.COLUMN_TITLE, title);
         values.put(DBHelper.COLUMN_LOCATION, location);
@@ -69,9 +67,18 @@ public class DataSource {
         String whereClause = DBHelper.COLUMN_ID + "=?";
         String[] whereArgs = {String.valueOf(appointmentId)};
 
-        return database.update(DBHelper.TABLE_APPOINTMENTS, values, whereClause, whereArgs);
+        int rowsUpdated = database.update(DBHelper.TABLE_APPOINTMENTS, values, whereClause, whereArgs);
 
+        if (rowsUpdated > 0) {
+            Log.d("DataSource", "Appointment updated successfully. Rows affected: " + rowsUpdated);
+        } else {
+            Log.e("DataSource", "Failed to update appointment.");
+        }
+
+        return rowsUpdated;
     }
+
+
     public List<Appointment> getAppointments() {
         List<Appointment> appointments = new ArrayList<>();
 
@@ -159,5 +166,6 @@ public class DataSource {
         String[] whereArgs = {String.valueOf(appointmentId)};
         return database.delete(DBHelper.TABLE_APPOINTMENTS, whereClause, whereArgs);
     }
+
 
 }

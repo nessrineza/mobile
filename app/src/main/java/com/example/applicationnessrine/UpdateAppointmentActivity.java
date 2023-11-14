@@ -3,6 +3,7 @@ package com.example.applicationnessrine;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -20,85 +21,90 @@ public class UpdateAppointmentActivity extends AppCompatActivity {
     private EditText editTextDate;
     private EditText editTextTime;
     private long appointmentId;
-    private List<Appointment> appointments = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_appointment);
 
-        editTextTitle = findViewById(R.id.editTextTitle);
-        editTextLocation = findViewById(R.id.editTextLocation);
-        editTextDate = findViewById(R.id.editTextDate);
-        editTextTime = findViewById(R.id.editTextTime);
+        // ... Other initializations
 
         Intent intent = getIntent();
         if (intent.hasExtra("APPOINTMENT_ID")) {
-            appointmentId = intent.getLongExtra("APPOINTMENT_ID", -1);
-            // Récupérez les détails du rendez-vous à partir de la base de données
-            loadAppointmentDetails();
+            appointmentId = getIntent().getLongExtra("APPOINTMENT_ID", -1);
+
+            // Missing call to pre-fill the edit fields with the appointment details
+            loadAppointmentDetails(appointmentId);
+
+            // Initialize the list of appointments (add this line)
+            DataSource dataSource = new DataSource(this);
+            dataSource.open();
+            List<Appointment> appointments = dataSource.getAppointments();
+            dataSource.close();
         } else {
-            // Gérer l'erreur
+            // Handle the error
             finish();
         }
 
-        // ... Autres initialisations et écouteurs d'événements
-
-
-
-    // Ajoutez un écouteur sur le bouton "Sauvegarder les modifications"
+        // ... Add the listener for the "Save Changes" button
         Button btnSaveUpdate = findViewById(R.id.buttonSaveUpdate);
         btnSaveUpdate.setOnClickListener(v -> {
-            // Appel de la méthode pour sauvegarder les modifications
+            // Call the method to save the changes
             updateAppointment();
         });
     }
 
-    private void loadAppointmentDetails() {
-        // Assurez-vous que la liste d'appointments n'est pas vide
-        if (!appointments.isEmpty()) {
-            // Obtenez l'objet Appointment à partir de la liste en fonction de l'ID
-            Appointment appointment = findAppointmentById(appointmentId);
-
-            // Remplissez les champs avec les détails du rendez-vous
-            if (appointment != null) {
-                editTextTitle.setText(appointment.getTitle());
-                editTextLocation.setText(appointment.getLocation());
-                editTextDate.setText(appointment.getDate());
-                editTextTime.setText(appointment.getTime());
-            }
-        }
-    }
-
-    // Méthode pour trouver un rendez-vous dans la liste en fonction de l'ID
-    private Appointment findAppointmentById(long id) {
-        for (Appointment appointment : appointments) {
-            if (appointment.getId() == id) {
-                return appointment;
-            }
-        }
-        return null; // Rendez-vous non trouvé
-    }
-
-
-
-    private void updateAppointment() {
-        // Récupérez les nouvelles valeurs des champs
-        String newTitle = editTextTitle.getText().toString();
-        String newLocation = editTextLocation.getText().toString();
-        String newDate = editTextDate.getText().toString();
-        String newTime = editTextTime.getText().toString();
-
-        // Créez un objet Appointment avec les nouvelles valeurs
-        Appointment updatedAppointment = new Appointment(appointmentId, newTitle, newLocation, newDate, newTime);
-
-        // Mettez à jour la base de données
+    private void loadAppointmentDetails(long appointmentId) {
+        // Retrieve the appointment details from the database
         DataSource dataSource = new DataSource(this);
         dataSource.open();
-        dataSource.updateAppointmentById(appointmentId,newTitle,newLocation,newDate,newTime);
+        Appointment appointment = dataSource.getAppointmentById(appointmentId);
         dataSource.close();
 
-        // Terminez l'activité ou effectuez d'autres actions nécessaires
-        finish();
+        if (appointment != null) {
+            editTextTitle = findViewById(R.id.editTextTitle);
+            editTextLocation = findViewById(R.id.editTextLocation);
+            editTextDate = findViewById(R.id.editTextDate);
+            editTextTime = findViewById(R.id.editTextTime);
+
+            // Set the existing appointment details to the EditText fields
+            editTextTitle.setText(appointment.getTitle());
+            editTextLocation.setText(appointment.getLocation());
+            editTextDate.setText(appointment.getDate());
+            editTextTime.setText(appointment.getTime());
+        } else {
+            Log.e("UpdateAppointment", "No appointment found with ID: " + appointmentId);
+        }
+    }
+
+    private void updateAppointment() {
+        // Retrieve the new values from the fields
+        String newTitle = editTextTitle.getText().toString().trim();
+        String newLocation = editTextLocation.getText().toString().trim();
+        String newDate = editTextDate.getText().toString().trim();
+        String newTime = editTextTime.getText().toString().trim();
+
+        // Check if the appointmentId is valid
+        if (appointmentId != -1) {
+            // Update the appointment in the database
+            DataSource dataSource = new DataSource(this);
+            dataSource.open();
+            int rowsUpdated = dataSource.updateAppointmentById(appointmentId, newTitle, newLocation, newDate, newTime);
+            dataSource.close();
+
+            if (rowsUpdated > 0) {
+                Log.d("UpdateAppointment", "Appointment updated successfully. Rows affected: " + rowsUpdated);
+
+                // Navigate back to the ListeRendezVousActivity or perform other actions
+                Intent intent = new Intent(this, ListeRendezVousActivity.class);
+                startActivity(intent);
+                finish(); // Optional: Finish the current activity if needed
+            } else {
+                Log.e("UpdateAppointment", "Failed to update appointment.");
+            }
+        } else {
+            // Log an error if the appointmentId is not valid
+            Log.e("UpdateAppointment", "Invalid appointmentId: " + appointmentId);
+        }
     }
 }

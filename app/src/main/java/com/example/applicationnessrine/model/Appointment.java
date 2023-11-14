@@ -1,7 +1,9 @@
 package com.example.applicationnessrine.model;
 
 
-public class Appointment {
+import java.io.Serializable;
+
+public class Appointment implements Serializable {
     private long id;
     private String title;
     private String location;

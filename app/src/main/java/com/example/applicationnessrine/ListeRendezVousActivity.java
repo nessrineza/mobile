@@ -1,17 +1,18 @@
 package com.example.applicationnessrine;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-// ListeRendezVousActivity.java
-
+import android.app.AlertDialog;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.applicationnessrine.AppointmentAdapter.UpdateClickListener;
+
 
 import com.example.applicationnessrine.model.Appointment;
 
@@ -30,34 +31,66 @@ public class ListeRendezVousActivity extends AppCompatActivity {
 
         listViewRendezVous = findViewById(R.id.listViewRendezVous);
 
-        // Créez l'adaptateur sans données initiales
+        // Create the adapter with an empty list
         adapter = new AppointmentAdapter(this, new ArrayList<>());
 
-        // Définissez l'adaptateur sur la ListView
+        // Set the update click listener for the adapter
+        adapter.setUpdateClickListener(appointmentId -> {
+            // Handle the update click event by opening UpdateAppointmentActivity
+            Intent intent = new Intent(this, UpdateAppointmentActivity.class);
+            intent.putExtra("APPOINTMENT_ID", appointmentId);
+            startActivity(intent);
+        });
+
+        // Set the adapter for the ListView
         listViewRendezVous.setAdapter(adapter);
 
-        // Chargez les rendez-vous depuis la base de données
+        // Load appointments from the database
         loadAppointmentsFromDatabase();
+
+        listViewRendezVous.setOnItemClickListener((parent, view, position, id) -> {
+            long appointmentId = adapter.getItemId(position);
+            showOptionsDialog(appointmentId);
+        });
     }
+
     private void showOptionsDialog(long appointmentId) {
-        // Pas besoin de rechercher l'objet Appointment ici
+        // Fetch the appointment by ID
+        DataSource dataSource = new DataSource(this);
+        dataSource.open();
+        Appointment appointment = dataSource.getAppointmentById(appointmentId);
+        dataSource.close();
+
+        if (appointment == null) {
+            Log.e("ListeRendezVousActivity", "Appointment not found for ID: " + appointmentId);
+            // Handle the case where the appointment is not found
+            return;
+        }
+
+        // Build the options dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Options");
         builder.setMessage("Que voulez-vous faire avec ce rendez-vous?");
 
         builder.setPositiveButton("Modifier", (dialog, which) -> {
-            // Rediriger vers l'activité de mise à jour avec l'ID du rendez-vous
-            AppointmentAdapter.openUpdateActivity(this, appointmentId);
+            Log.d("ListeRendezVousActivity", "Modifier button clicked for appointment ID: " + appointmentId);
+            // Redirect to the update activity with the appointment ID
+            if (appointmentId != -1) {
+                Intent intent = new Intent(this, UpdateAppointmentActivity.class);
+                intent.putExtra("APPOINTMENT_ID", appointmentId);
+                startActivity(intent);
+            }
         });
 
         builder.setNegativeButton("Supprimer", (dialog, which) -> {
-            // Supprimer le rendez-vous de la base de données et actualiser la liste
+            // Delete the appointment from the database and refresh the list
             deleteAppointment(appointmentId);
         });
 
-        builder.show();
+        // Show the dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
-
 
     private void deleteAppointment(long appointmentId) {
         // Supprimer le rendez-vous de la base de données
@@ -80,8 +113,5 @@ public class ListeRendezVousActivity extends AppCompatActivity {
         adapter.addAll(appointments);
         adapter.notifyDataSetChanged();
     }
-
-    // Le reste de votre code...
 }
-
 

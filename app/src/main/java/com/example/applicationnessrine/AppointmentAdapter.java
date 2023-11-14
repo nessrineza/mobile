@@ -19,13 +19,19 @@ import com.example.applicationnessrine.model.Appointment;
 import java.util.List;
 
 public class AppointmentAdapter extends ArrayAdapter<Appointment> {
-    public AppointmentAdapter(@NonNull Context context, int resource) {
-        super(context, resource);
-    }
 
-    // ... Autres méthodes et variables
     public AppointmentAdapter(Context context, List<Appointment> appointments) {
         super(context, 0, appointments);
+    }
+
+    public interface UpdateClickListener {
+        void onUpdateClick(long appointmentId);
+    }
+
+    private UpdateClickListener updateClickListener;
+
+    public void setUpdateClickListener(UpdateClickListener listener) {
+        this.updateClickListener = listener;
     }
 
     @NonNull
@@ -35,42 +41,37 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_appointment, parent, false);
         }
 
-        // Obtenez l'objet Appointment à cette position
+        // Obtain the Appointment object at this position
         Appointment appointment = getItem(position);
 
-        // Remplissez les vues avec les données de rendez-vous
+
+        // Fill the views with appointment data
         TextView textViewName = convertView.findViewById(R.id.textViewName);
         TextView textViewDate = convertView.findViewById(R.id.textViewDate);
         Button updateButton = convertView.findViewById(R.id.updateButton);
         Button deleteButton = convertView.findViewById(R.id.deleteButton);
 
-        if (appointment != null) {
+        // Setting text for name and date
+
             textViewName.setText(appointment.getTitle());
             textViewDate.setText(appointment.getDate());
 
-            // Ajoutez ici les écouteurs d'événements pour les boutons si nécessaire
-            // Par exemple, vous pouvez ajouter un OnClickListener pour chaque bouton
+            // Adding a click listener for the update button
             updateButton.setOnClickListener(v -> {
-                // Ouvrir l'activité de mise à jour lorsque le bouton de mise à jour est cliqué
-                openUpdateActivity(getContext(), appointment.getId());
+                if (updateClickListener != null) {
+                    Log.d("AppointmentAdapter", "Update button clicked for appointment ID: " + appointment.getId());
+                    updateClickListener.onUpdateClick(appointment.getId());
+                }
             });
-
             deleteButton.setOnClickListener(v -> {
-                // Afficher la boîte de dialogue de confirmation de suppression
+                // Show the delete confirmation dialog
                 showDeleteConfirmationDialog(getContext(), appointment.getId());
             });
 
-
-    }
         return convertView;
-       }
-    public static void openUpdateActivity(Context context, long appointmentId) {
-        Intent intent = new Intent(context, UpdateAppointmentActivity.class);
-        intent.putExtra("APPOINTMENT_ID", appointmentId);
-        context.startActivity(intent);
     }
 
-    public static void showDeleteConfirmationDialog(Context context, long appointmentId) {
+    private void showDeleteConfirmationDialog(Context context, long appointmentId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage("Voulez-vous vraiment supprimer ce rendez-vous?");
         builder.setPositiveButton("Oui", (dialog, which) -> {
@@ -81,24 +82,17 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
         });
         builder.show();
     }
-    private void loadAppointmentsFromDatabase() {
-        DataSource dataSource = new DataSource(getContext());
-        dataSource.open();
-        List<Appointment> appointments = dataSource.getAppointments();
-        dataSource.close();
 
-        clear();
-        addAll(appointments);
-        notifyDataSetChanged();
-    }
-    public static void deleteAppointment(Context context, long appointmentId) {
+    private static void deleteAppointment(Context context, long appointmentId) {
         DataSource dataSource = new DataSource(context);
         dataSource.open();
-        dataSource.deleteAppointment(appointmentId);
+        int deletedRows = dataSource.deleteAppointment(appointmentId);
         dataSource.close();
+
+        if (deletedRows > 0) {
+            Log.d("AppointmentAdapter", "Appointment deleted successfully. Rows affected: " + deletedRows);
+        } else {
+            Log.e("AppointmentAdapter", "Failed to delete appointment.");
+        }
     }
-
-
-    // ... Autres méthodes et classes nécessaires
 }
-
