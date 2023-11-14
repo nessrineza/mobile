@@ -12,11 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Nom du service"/>
-<!--    <EditText-->
-<!--        android:id="@+id/editTextDescription"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="Enter Description"/>-->
+    <!--    <EditText-->
+    <!--        android:id="@+id/editTextDescription"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:hint="Enter Description"/>-->
 
     <!-- Button to add Offre -->
     <Button
@@ -45,8 +45,8 @@
         android:layout_below="@id/recyclerViewOffres"
         android:layout_marginTop="16dp"
         android:layout_alignParentEnd="true"
-    android:layout_alignParentRight="true"
-    android:layout_marginEnd="16dp"
-    android:layout_marginRight="16dp"
-    android:onClick="onCreateServiceClick"/>
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:onClick="onCreateServiceClick"/>
 </RelativeLayout>
